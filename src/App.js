@@ -19,7 +19,7 @@ function App() {
 
   let todoItems = 
     items.length > 0 && (
-    <Paper sytle={{margin: 16}}>
+    <Paper style={{margin: 16}}>
       <List>
         {items.map((item)=>(
           <Todo item={item} key={item.id}/>
