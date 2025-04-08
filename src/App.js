@@ -17,6 +17,15 @@ function App() {
     done: true
   }]);
 
+//AddTodo 에 넘겨줄 addItem 함수 생성
+  const addItem=(item) => {
+    item.id = "ID-" + items.length; //key를 위한 id
+    item.done = false; //done 으로 초기화
+    setItems([...items, item]); //items 배열을 spread 하고 item 추가
+    console.log("items: ", items);
+  };
+
+
   let todoItems = 
     items.length > 0 && (
     <Paper style={{margin: 16}}>
@@ -31,7 +40,7 @@ function App() {
   return (
     <div className='App'>
       <Container maxWidth="md">
-        <AddTodo/>
+        <AddTodo addItem={addItem}/> {/**addItem 속성에 addItem 함수 넣어서 전달 */}
         <div className="TodoList">{todoItems}</div>
       </Container>
     </div>
