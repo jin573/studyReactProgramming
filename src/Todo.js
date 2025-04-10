@@ -5,10 +5,28 @@ import DeleteOutlined from "@mui/icons-material/DeleteOutlined";
 const Todo = (props) => {
     const[item, setItem] = useState(props.item);/*상태변경 함수 생성. 부모가 넘겨준 item 객체를 item 상태 변수가 가리킴 */
     const deleteItem = props.deleteItem; //1. deleteItem 연결
+    const [readOnly, setReadOnly] = useState(true);
+    const editItem = props.editItem;
 
     //2. 이벤트 핸들러 생성
     const deleteEventHandler =() => {
         deleteItem(item);
+    }
+    //title 클릭 시 실행. 현재는 false -> readonly 상태에서 풀림
+    const turnOffReadOnly =() =>{
+        setReadOnly(false);
+    }
+
+    //enter 키를 누르면 다시 readonly 상태로 변경
+    const turnOnReadOnly = (e) => {
+        if(e.key == "Enter"){
+            setReadOnly(true);
+        }
+    }
+
+    const editEventHandler = (e) => {
+        item.title = e.target.value;
+        editItem();
     }
 
     return (
@@ -16,7 +34,10 @@ const Todo = (props) => {
             <Checkbox checked={item.done}/>
             <ListItemText>
                 <InputBase
-                    inputProps={{"aria-label": "naked"}}
+                    inputProps={{"aria-label": "naked", readOnly:readOnly}}
+                    onClick={turnOffReadOnly}
+                    onKeyDown={turnOnReadOnly}
+                    onChange={editEventHandler}
                     type="text"
                     id={item.id}
                     name={item.id}

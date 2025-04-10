@@ -16,7 +16,7 @@ function App() {
     title: "Hello World 2",
     done: true
   }]);*/
-  
+
   //4. todoitem 삭제 기능 생성 후 useState 초기화
   const[items, setItems] = useState([]);
 
@@ -34,12 +34,17 @@ function App() {
     setItems([...newItems]);
   };
 
+//수정 기능 추가
+  const editItem = () =>{
+    setItems([...items]);
+  }
+
   let todoItems = 
     items.length > 0 && (
     <Paper style={{margin: 16}}>
       <List>
         {items.map((item)=>(
-          <Todo item={item} key={item.id} deleteItem={deleteItem}/> //delete 함수를 추가한다
+          <Todo item={item} key={item.id} deleteItem={deleteItem} editItem={editItem}/> //delete, edit 함수를 추가한다
         ))}
       </List>
     </Paper>
