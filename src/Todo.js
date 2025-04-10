@@ -29,9 +29,15 @@ const Todo = (props) => {
         editItem();
     }
 
+    //체크박스 변경 시 작동
+    const checkboxEventHandler = (e) =>{
+        item.done = e.target.checked;
+        editItem();
+    }
+
     return (
         <ListItem>
-            <Checkbox checked={item.done}/>
+            <Checkbox checked={item.done} onChange={checkboxEventHandler}/> {/**체크박스 변경 시 작동 */}
             <ListItemText>
                 <InputBase
                     inputProps={{"aria-label": "naked", readOnly:readOnly}}
