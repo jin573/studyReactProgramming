@@ -5,7 +5,7 @@ import { Container, List, Paper } from "@mui/material";
 import AddTodo from "./AddTodo";
 
 function App() {
-  const[items, setItems] = useState([
+/*  const[items, setItems] = useState([
   {
     id:"0",
     title: "Hello World 1",
@@ -15,7 +15,10 @@ function App() {
     id:"1",
     title: "Hello World 2",
     done: true
-  }]);
+  }]);*/
+  
+  //4. todoitem 삭제 기능 생성 후 useState 초기화
+  const[items, setItems] = useState([]);
 
 //AddTodo 에 넘겨줄 addItem 함수 생성
   const addItem=(item) => {
@@ -25,13 +28,18 @@ function App() {
     console.log("items: ", items);
   };
 
+  //Todo 컴포넌트를 만드는 곳에 넘겨줌 -> let todoItems
+  const deleteItem=(item) =>{
+    const newItems = items.filter(e=> e.id !== item.id); // 클릭된 item 을 제외한 items들이 newItems로 들어가 다시 배치된다. 
+    setItems([...newItems]);
+  };
 
   let todoItems = 
     items.length > 0 && (
     <Paper style={{margin: 16}}>
       <List>
         {items.map((item)=>(
-          <Todo item={item} key={item.id}/>
+          <Todo item={item} key={item.id} deleteItem={deleteItem}/> //delete 함수를 추가한다
         ))}
       </List>
     </Paper>
