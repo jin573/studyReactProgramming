@@ -20,6 +20,22 @@ function App() {
   //4. todoitem 삭제 기능 생성 후 useState 초기화
   const[items, setItems] = useState([]);
 
+  const requestOptions = {
+    method: "GET",
+    headers: {"Content-Type": "application/json"},
+  };
+
+  fetch("http://localhost:8080/todo", requestOptions)
+  .then((response)=>response.json())
+  .then(
+    (response) => {
+      setItems(response.data);
+    },
+    (error) => {
+
+    }
+  );
+
 //AddTodo 에 넘겨줄 addItem 함수 생성
   const addItem=(item) => {
     item.id = "ID-" + items.length; //key를 위한 id
