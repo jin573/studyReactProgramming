@@ -3,6 +3,7 @@ import Todo from './Todo';
 import React, { useEffect, useState } from 'react';
 import { Container, List, Paper } from "@mui/material";
 import AddTodo from "./AddTodo";
+import { API_BASE_URL } from './api-config';
 
 function App() {
 /*  const[items, setItems] = useState([
@@ -26,14 +27,16 @@ function App() {
       headers: { "Content-Type": "application/json" },
     };
 
-    fetch("http://localhost:8080/todo", requestOptions)
+    fetch(API_BASE_URL + "/todo", requestOptions)
       .then((response) => response.json())
-      .then(
-        (response) => {
-          setItems(response.data); //backend response DTO의 data
-        },
-        (error) => {}
-      );
+      // .then(
+      //   (response) => {
+      //     setItems(response.data); //backend response DTO의 data
+      //   },
+      //   (error) => {}
+      // );
+      .then((response) => { setItems(response.data); } )
+      .catch( (e) => {}); //자주 쓰이는 형태이다.
   }, []);
   
 
