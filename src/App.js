@@ -1,6 +1,6 @@
 import './App.css';
 import Todo from './Todo';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, List, Paper } from "@mui/material";
 import AddTodo from "./AddTodo";
 
@@ -20,21 +20,22 @@ function App() {
   //4. todoitem 삭제 기능 생성 후 useState 초기화
   const[items, setItems] = useState([]);
 
-  const requestOptions = {
-    method: "GET",
-    headers: {"Content-Type": "application/json"},
-  };
+  useEffect(() => {
+    const requestOptions = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
 
-  fetch("http://localhost:8080/todo", requestOptions)
-  .then((response)=>response.json())
-  .then(
-    (response) => {
-      setItems(response.data);
-    },
-    (error) => {
-
-    }
-  );
+    fetch("http://localhost:8080/todo", requestOptions)
+      .then((response) => response.json())
+      .then(
+        (response) => {
+          setItems(response.data); //backend response DTO의 data
+        },
+        (error) => {}
+      );
+  }, []);
+  
 
 //AddTodo 에 넘겨줄 addItem 함수 생성
   const addItem=(item) => {
