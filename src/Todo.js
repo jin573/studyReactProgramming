@@ -19,20 +19,21 @@ const Todo = (props) => {
 
     //enter 키를 누르면 다시 readonly 상태로 변경
     const turnOnReadOnly = (e) => {
-        if(e.key == "Enter"){
+        if(e.key === "Enter" && readOnly === false){
             setReadOnly(true);
+            editItem(item);
         }
     }
 
     const editEventHandler = (e) => {
-        item.title = e.target.value;
-        editItem();
+        //item.title = e.target.value;
+        setItem({...item, title: e.target.value});
     }
 
     //체크박스 변경 시 작동
     const checkboxEventHandler = (e) =>{
         item.done = e.target.checked;
-        editItem();
+        editItem(item);
     }
 
     return (
