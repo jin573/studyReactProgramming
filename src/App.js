@@ -21,9 +21,14 @@ function App() {
 
   //4. todoitem 삭제 기능 생성 후 useState 초기화
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState([true]);
+
 
   useEffect(() => {
-    call("/todo", "GET", null).then((response) => setItems(response.data));
+    call("/todo", "GET", null).then((response) => {
+      setItems(response.data);
+      setLoading(false);
+    });
   }, []);
 
   const addItem = (item) => {
@@ -105,14 +110,28 @@ function App() {
     </AppBar>
   );
 
-  return (
-    <div className="App">
+  let todoListPage = (
+    <div>
       {navigationBar}
-      <Container maxWidth="md">
-        <AddTodo addItem={addItem} />{" "}
-        {/**addItem 속성에 addItem 함수 넣어서 전달 */}
+      <Container maxWidth = "md">
+        <AddTodo addItem={addItem}/>
         <div className="TodoList">{todoItems}</div>
       </Container>
+    </div>
+  );
+
+  let loadingPage = (
+    <h1>로딩중..</h1>
+  );
+  let content = loadingPage;
+
+  if(!loading){
+    content = todoListPage;
+  }
+
+  return (
+    <div className="App">
+      {content}
     </div>
   );
 }
